@@ -5,6 +5,38 @@
 ## 项目简介
 这是一个基于知识图谱和知识库的大模型对话系统，特别针对CCUS技术领域进行了优化和定制。
 
+## 快速启动
+
+### 环境要求
+- Python 3.8+
+- Node.js 16+
+- CUDA（可选，用于GPU加速）
+
+### 安装依赖
+```bash
+# 安装前端依赖
+cd chat-kg
+npm install
+
+# 安装后端依赖
+cd ../server
+pip install -r requirements.txt
+```
+
+### 启动服务
+在项目根目录运行：
+```bash
+npm run dev
+```
+
+这将同时启动：
+- 前端服务：http://localhost:5173
+- 后端API：http://localhost:8000
+
+### 配置说明
+- ChatGLM-6B模型会自动下载，也可手动放置在 `models/chatglm-6b/` 目录
+- CCUS知识图谱数据位于 `server/app/data/` 目录
+
 ## 项目整体流程介绍
 #### 项目整体包含5个部分：数据预处理、图谱构建、图谱补全、对话模型、网页呈现
 ![整体流程](/demo/all.png)

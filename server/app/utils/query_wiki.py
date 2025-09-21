@@ -7,7 +7,10 @@ cc = OpenCC('s2t')
 class WikiSearcher(object):
 
     def __init__(self) -> None:
-        self.wiki = wikipediaapi.Wikipedia('zh')
+        self.wiki = wikipediaapi.Wikipedia(
+            user_agent='CCUS-CT-KnowledgeGraph/1.0 (https://github.com/huh7i5/ccus-ct)',
+            language='zh'
+        )
 
     def search(self, query):
 

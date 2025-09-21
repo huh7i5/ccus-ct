@@ -1,0 +1,13 @@
+{
+  "name": "ccus-ct-project",
+  "version": "1.0.0",
+  "description": "CCUS-CT知识图谱对话系统",
+  "scripts": {
+    "dev": "concurrently \"cd server && python main.py\" \"cd chat-kg && npm run dev-frontend-only\"",
+    "start": "npm run dev",
+    "install-deps": "cd chat-kg && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

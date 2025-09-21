@@ -1,9 +1,14 @@
 
+import os
 from paddlenlp import Taskflow
 
 class Ner:
     def __init__(self):
-        self.model = Taskflow("ner", task_path="weights/model_41_100")
+        # 使用绝对路径确保模型可以正确加载
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        server_dir = os.path.dirname(os.path.dirname(current_dir))
+        model_path = os.path.join(server_dir, "weights", "model_41_100")
+        self.model = Taskflow("ner", task_path=model_path)
 
     def predict(self, text):
         return self.model(text)
