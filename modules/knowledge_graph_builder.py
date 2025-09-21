@@ -1,14 +1,18 @@
 import os
 import json
 import time
-from prepare.preprocess import process_text
-from prepare.utils import refine_knowledge_graph
-from prepare.process import uie_execute
-from prepare.filter import auto_filter
+from modules.prepare.preprocess import process_text
+from modules.prepare.utils import refine_knowledge_graph
+from modules.prepare.process import uie_execute
+try:
+    from modules.prepare.filter import auto_filter
+except ImportError:
+    print("Using simple filter due to import issues")
+    from modules.prepare.simple_filter import auto_filter
 
 from modules.model_trainer import ModelTrainer
 
-from prepare import cprint as ct
+from modules.prepare import cprint as ct
 
 class KnowledgeGraphBuilder:
 
@@ -20,7 +24,7 @@ class KnowledgeGraphBuilder:
         """
         # self.args = args # 不能被序列化
         self.data_dir = os.path.join("data", args.project)  # 存放生成的数据的地方
-        self.text_path = os.path.join("data", "raw_data.txt") # 原始的文本文件
+        self.text_path = os.path.join("data", "cleaned_ccus_data.txt") # 原始的文本文件
         self.base_kg_path = os.path.join(self.data_dir, "base.json") # 生成的三元组文件
         self.refined_kg_path = os.path.join(self.data_dir, "base_refined.json")# 筛选过后的三元组文件
         self.filtered_kg_path = os.path.join(self.data_dir, "base_filtered.json") # 仅过滤无筛选的三元组文件

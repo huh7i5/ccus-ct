@@ -1,7 +1,8 @@
 # coding=utf-8
 from flask import Flask, jsonify
 from flask_cors import CORS
-from app.utils.chat_glm import start_model
+# Skip model loading for testing
+# from app.utils.chat_glm import start_model
 
 apps = Flask(__name__)# 这段代码是为了解决跨域问题，Flask默认不支持跨域
 CORS(apps, resources=r'/*')# CORS的用法是

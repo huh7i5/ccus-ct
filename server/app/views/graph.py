@@ -9,12 +9,18 @@ mod = Blueprint('graph', __name__, url_prefix='/graph')
 
 @mod.route('/', methods=['GET'])
 def graph():
-    with open('data/data.json', 'r') as f:
-        data = json.load(f)
+    # Load CCUS knowledge graph data
+    ccus_data_path = '../data/ccus_project/base.json'
+    if os.path.exists(ccus_data_path):
+        with open(ccus_data_path, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            data = [json.loads(line.strip()) for line in lines if line.strip()]
+    else:
+        data = {"error": "CCUS knowledge graph data not found"}
 
     return jsonify({
         'data': data,
-        'message': 'You Got It!'
+        'message': 'CCUS Knowledge Graph Loaded!'
     })
 
 
