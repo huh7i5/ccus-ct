@@ -1,0 +1,56 @@
+# IDE and Editor files
+.idea
+.vscode
+.DS_Store
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pickle
+
+# Model checkpoints and weights
+./SPN4RE/bert_pretrain/
+Uie-finetune/checkpoint/
+weights/
+*.pth
+*.bin
+*.safetensors
+
+# Jupyter notebooks (temporary)
+test*.ipynb
+*.ipynb_checkpoints
+
+# CCUS-CT specific
+data/project_*/iteration_*/
+data/project_*/history/
+*.log
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+coverage
+*.local
+
+weights
+
+/cypress/videos/
+/cypress/screenshots/
+
+# Editor directories and files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
