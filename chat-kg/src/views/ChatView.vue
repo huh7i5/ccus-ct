@@ -198,41 +198,52 @@ const sendMessage = () => {
 
 const graphOption = (graph) => {
   console.log(graph)
-  graph.nodes.forEach(node => {
+
+  // 创建节点名称到索引的映射
+  const nodeNameToIndex = {};
+  graph.nodes.forEach((node, idx) => {
+    nodeNameToIndex[node.name || node.id] = idx;
+    node.id = idx;
     node.symbolSize = 5;
     node.label = {
       show: true
-    }
+    };
   });
+
+  // 转换链接中的source和target为索引
+  const processedLinks = (graph.links || []).map(link => ({
+    source: nodeNameToIndex[link.source] !== undefined ? nodeNameToIndex[link.source] : link.source,
+    target: nodeNameToIndex[link.target] !== undefined ? nodeNameToIndex[link.target] : link.target,
+    value: link.relation || link.value || '',
+    name: link.relation || link.name || ''
+  }));
+
   let option = {
     tooltip: {
-      show: true, //默认值为true
-      showContent: true, //是否显示提示框浮层
-      trigger: 'item', //触发类型，默认数据项触发
-      triggerOn: 'mousemove', //提示触发条件，mousemove鼠标移至触发，还有click点击触发
-      alwaysShowContent: false, //默认离开提示框区域隐藏，true为一直显示
-      showDelay: 0, //浮层显示的延迟，单位为 ms，默认没有延迟，也不建议设置。在 triggerOn 为 'mousemove' 时有效。
-      hideDelay: 200, //浮层隐藏的延迟，单位为 ms，在 alwaysShowContent 为 true 的时候无效。
-      enterable: false, //鼠标是否可进入提示框浮层中，默认为false，如需详情内交互，如添加链接，按钮，可设置为 true。
-      position: 'right', //提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。只在 trigger 为'item'的时候有效。
-      confine: false, //是否将 tooltip 框限制在图表的区域内。外层的 dom 被设置为 'overflow: hidden'，或者移动端窄屏，导致 tooltip 超出外界被截断时，此配置比较有用。
-      // transitionDuration: 0.1, //提示框浮层的移动动画过渡时间，单位是 s，设置为 0 的时候会紧跟着鼠标移动。
-      formatter: (x) => x.data.name
+      show: true,
+      showContent: true,
+      trigger: 'item',
+      triggerOn: 'mousemove',
+      alwaysShowContent: false,
+      showDelay: 0,
+      hideDelay: 200,
+      enterable: false,
+      position: 'right',
+      confine: false,
+      formatter: (x) => x.data.name || x.data.id
     },
     series: [
       {
         type: 'graph',
         draggable: true,
         layout: 'force',
-        data: graph.nodes.map(function (node, idx) {
-          node.id = idx;
-          return node;
-        }),
-        links: graph.links,
+        data: graph.nodes,
+        links: processedLinks,
         categories: graph.categories,
         roam: true,
         label: {
-          position: 'right'
+          position: 'right',
+          show: true
         },
         force: {
           repulsion: 100

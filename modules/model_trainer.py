@@ -39,13 +39,14 @@ class ModelTrainer:
         self.params = self.generate_running_cmd()
 
     def generate_running_cmd(self):
-        params = "python SPN4RE/main.py"
+        params = "python modules/SPN4RE/main.py"
         params += f" --bert_directory {self.model_name_or_path}"
         params += " --max_epoch 10"
         params += " --max_span_length 10"
         params += " --num_generated_triples 15"
         params += " --max_grad_norm 2.5"
         params += " --na_rel_coef 0.25"
+        params += " --max_seq_length 600"
         params += f" --train_file {self.train_file}"
         params += f" --valid_file {self.valid_file}"
         params += f" --test_file {self.test_file}"

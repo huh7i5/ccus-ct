@@ -55,7 +55,18 @@ def stream_predict(user_input, history=None):
             print(f"找到CCUS知识: {len(knowledge)} 条相关记录")
 
     # 2. 实体识别（保留原有逻辑）
-    graph = subgraph if subgraph["nodes"] else {}
+    # 确保graph对象始终包含nodes和links属性
+    if subgraph.get("nodes"):
+        graph = subgraph.copy()
+    else:
+        graph = {"nodes": [], "links": [], "edges": []}
+
+    # 添加相关句子信息用于前端显示
+    if knowledge:
+        graph["sents"] = [item.get('sentText', '') for item in knowledge[:5] if item.get('sentText')]
+    else:
+        graph["sents"] = []
+
     entities = []
 
     try:

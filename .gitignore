@@ -35,6 +35,8 @@ continue_*.py
 manual_continue.py
 fix_token_alignment.py
 truncate_data.py
+clean_data.py
+thorough_clean.py
 
 # Logs and temporary files
 logs/

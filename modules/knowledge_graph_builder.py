@@ -24,7 +24,7 @@ class KnowledgeGraphBuilder:
         """
         # self.args = args # 不能被序列化
         self.data_dir = os.path.join("data", args.project)  # 存放生成的数据的地方
-        self.text_path = os.path.join("data", "cleaned_ccus_data.txt") # 原始的文本文件
+        self.text_path = os.path.join("data", "ccus_project", "cleaned_ccus_data.txt") # 原始的文本文件
         self.base_kg_path = os.path.join(self.data_dir, "base.json") # 生成的三元组文件
         self.refined_kg_path = os.path.join(self.data_dir, "base_refined.json")# 筛选过后的三元组文件
         self.filtered_kg_path = os.path.join(self.data_dir, "base_filtered.json") # 仅过滤无筛选的三元组文件
@@ -48,8 +48,9 @@ class KnowledgeGraphBuilder:
 
         print(ct.green("Start Running Iteration:"), ct.yellow(f"v{self.version}"))
 
-        # 如果是第一次迭代，那么就直接读取 refined_kg_path
-        cur_data_path = self.kg_paths[-1] if self.version > 0 else self.refined_kg_path
+        # 如果是第一次迭代，那么就直接读取 base_kg_path (base_truncated.json)
+        base_truncated_path = os.path.join(self.data_dir, "base_truncated.json")
+        cur_data_path = self.kg_paths[-1] if self.version > 0 else base_truncated_path
         cur_out_path = os.path.join(self.data_dir, f"iteration_v{self.version}")
 
         print(ct.green("Current Data Path:"), ct.yellow(cur_data_path), ct.red(cur_out_path))
