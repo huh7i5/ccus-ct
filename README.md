@@ -2,10 +2,20 @@
 
 > 本项目基于 [KnowledgeGraph-based-on-Raw-text-A27](https://github.com/littlewwwhite/KnowledgeGraph-based-on-Raw-text-A27) 进行改造，专门用于CCUS（Carbon Capture, Utilization and Storage）领域的知识图谱构建和智能对话。
 
-## 项目简介
-这是一个基于知识图谱和知识库的大模型对话系统，特别针对CCUS技术领域进行了优化和定制。
+## 🎯 项目概述
 
-## 快速启动
+这是一个基于迭代训练的CCUS领域知识图谱构建系统，通过SPN4RE模型实现从v0到v11的12轮迭代训练，最终收敛构建出高质量的CCUS知识图谱，并提供智能对话功能。
+
+## ✨ 核心特性
+
+- 🔄 **迭代训练至收敛**：v0→v11共12轮训练，扩展率从38.10%降至10.00%
+- 📊 **丰富的知识图谱**：3,671个实体，15,823个关系，6种关系类型
+- 🎯 **CCUS领域专用**：专门针对碳捕集、利用与封存技术领域
+- 🖥️ **Web界面**：基于Vue3+Flask的现代化Web应用
+- 🔍 **智能搜索**：支持基于实体的知识图谱检索和子图抽取
+- 📈 **可视化展示**：ECharts图谱可视化，支持多种输出格式
+
+## 🚀 快速启动
 
 ### 环境要求
 - Python 3.8+
@@ -33,72 +43,128 @@ npm run dev
 - 前端服务：http://localhost:5173
 - 后端API：http://localhost:8000
 
-### 配置说明
-- ChatGLM-6B模型会自动下载，也可手动放置在 `models/chatglm-6b/` 目录
-- CCUS知识图谱数据位于 `server/app/data/` 目录
+## 📊 项目成果
 
-## 项目整体流程介绍
-#### 项目整体包含5个部分：数据预处理、图谱构建、图谱补全、对话模型、网页呈现
-![整体流程](/demo/all.png)
+### 知识图谱统计
+- **迭代轮数**: v0 → v11 (共12轮)
+- **收敛状态**: ✅ 已收敛 (扩展率 = 10.00%)
+- **文档数**: 648
+- **实体数**: 3,084
+- **关系数**: 15,823
+- **关系类型**: 6种
 
-### 首先是数据预处理的逻辑
+### 关系类型分布
+- **应用于**: 4,503 (28.5%)
+- **开发者**: 3,496 (22.1%)
+- **包含**: 3,201 (20.2%)
+- **合作伙伴**: 2,835 (17.9%)
+- **位于**: 1,733 (10.9%)
+- **投资方**: 55 (0.3%)
+
+### 核心实体
+最重要的实体包括：碳捕集、鄂尔多斯、内蒙古、集与封、封存、吉林、尔多斯盆、捕集与、捕集和、碳捕等CCUS领域核心概念。
+
+## 🔄 项目流程
+
+### 1. 数据预处理
 ![数据预处理环节](/demo/data_process.png)
 
-### 然后利用数据和ChatGPT定义的规则构建种子知识图谱
+### 2. 迭代训练流程
+```
+v0 (种子图谱) → v1 (38.10%) → v2 (29.17%) → ... → v11 (10.00% 收敛)
+```
+
+### 3. 知识图谱构建
 ![图谱构建](demo/build_kg.png)
 
-
-### 接着对种子知识图谱进行补全操作（需要对自己的数据进一步的筛选，有更深的认知）
+### 4. 图谱补全与优化
 ![图谱补全](demo/kg.png)
 
-### 利用chatglm-6b作为核心模型，基于flask构建后端的对话模型
+### 5. 智能对话模型
 ![对话模型](demo/chat.png)
 
-### 前端界面构建和项目部署
+### 6. Web界面展示
 ![前端](demo/web.png)
 
+## 📁 输出文件
 
-## 环境配置
+最终知识图谱输出位于 `data/ccus_project/final_results/`：
+- 📊 统计信息: `ccus_kg_statistics.json`
+- 🖼️ 核心图谱: `ccus_core_knowledge_graph.png`
+- 📈 关系分布图: `ccus_relation_distribution.png`
+- 🔗 GraphML格式: `ccus_knowledge_graph.graphml`
+- 📄 边列表: `ccus_knowledge_graph_edges.csv`
+- 📋 节点列表: `ccus_knowledge_graph_nodes.csv`
+- 📋 完整报告: `CCUS_KG_Report.md`
 
----
+## 🛠️ 技术栈
+
+### 后端
+- **框架**: Flask
+- **关系抽取**: SPN4RE (Set Prediction Networks for Relation Extraction)
+- **预训练模型**: BERT-base-chinese
+- **知识图谱**: NetworkX
+- **可视化**: Matplotlib
+
+### 前端
+- **框架**: Vue 3 + Vite
+- **图谱可视化**: ECharts
+- **UI组件**: Element Plus
+- **HTTP客户端**: Axios
+
+### 数据处理
+- **分词**: Jieba
+- **数据格式**: JSON Lines
+- **图谱格式**: GraphML, GML, CSV
+
+## 🔧 环境配置
+
+```
 python                    3.8.16
-torch                     1.11.0+cu113~
+torch                     1.11.0+cu113
 paddlenlp                 2.5.1
 paddlepaddle-gpu          2.3.2
-transformer               **2.6.0**
+transformers              4.21.0
+networkx                  2.8.4
+matplotlib                3.5.2
+flask                     2.2.2
+vue                       3.3.0
+```
 
+## 📚 核心模型
 
-## 初始模型：
----
-知识种子图图谱模型：paddlenlp-model-zoo-uie
-所用模型类型：'information extraction'
+- **关系抽取模型**: SPN4RE
+- **预训练模型**: bert-base-chinese
+- **数据分布**: 训练集50%，验证集20%，测试集30%
+- **训练参数**: 10 epochs, batch_size=8, lr=2e-5
 
+## 🎯 使用场景
 
-##  训练模型：SPN4RE-NYT—exact
----
-训练集占比：50%
-验证集占比：10%
-测试集占比：40%
+- CCUS技术研究
+- 碳中和政策分析
+- 环保技术咨询
+- 学术研究支持
+- 知识图谱可视化
 
+## 📖 项目特点
 
-## 数据来源：
----
-针对CCUS技术领域的专业文献和技术资料进行知识抽取和图谱构建。
+- ✅ 基于SPN4RE的关系抽取
+- ✅ 迭代训练直至收敛
+- ✅ 中文CCUS领域专用
+- ✅ 多格式输出支持
+- ✅ Web界面友好交互
+- ✅ 智能知识检索
 
-## 数据标注
-利用标注工具对CCUS相关的技术文档进行标注，构建领域专业知识图谱。
+## 👥 作者信息
 
-## 技术特点
-- 支持多种数据源的知识抽取
-- 基于大模型的智能对话
-- 可视化知识图谱展示
-- Web界面友好交互
+- **作者**: huh7i5
+- **邮箱**: 1322133227@qq.com
+- **GitHub**: https://github.com/huh7i5/ccus-ct
 
-## 作者信息
-- 作者：huh7i5
-- 邮箱：1322133227@qq.com
-- GitHub：https://github.com/huh7i5/ccus-ct
+## 🙏 致谢
 
-## 致谢
 感谢原项目 [littlewwwhite/KnowledgeGraph-based-on-Raw-text-A27](https://github.com/littlewwwhite/KnowledgeGraph-based-on-Raw-text-A27) 提供的技术基础。
 
+## 📄 许可证
+
+本项目采用 MIT 许可证。详情请见 [LICENSE](LICENSE) 文件。

@@ -75,10 +75,11 @@ def convert_relations_to_graph(relation_data):
     # 转换为列表格式
     node_list = list(nodes.values())
 
-    # 显示完整图谱的节点，但限制连线数量以提高可读性
-    if len(links) > 1500:
-        # 保留前1500条最重要的连线
-        links = links[:1500]
+    # 由于数据质量已显著提升，可以显示所有连线
+    # 如果连线数量过多才进行限制
+    if len(links) > 2000:
+        # 保留前2000条最重要的连线
+        links = links[:2000]
 
     # 添加类别信息
     categories = [
@@ -97,8 +98,8 @@ def convert_relations_to_graph(relation_data):
 
 @mod.route('/graph', methods=['GET'])
 def graph():
-    # Load CCUS knowledge graph data
-    ccus_data_path = '/root/KnowledgeGraph-based-on-Raw-text-A27-main/KnowledgeGraph-based-on-Raw-text-A27-main/data/ccus_project/base.json'
+    # Load CCUS knowledge graph data - using v11 final converged version
+    ccus_data_path = '/root/KnowledgeGraph-based-on-Raw-text-A27-main/KnowledgeGraph-based-on-Raw-text-A27-main/data/ccus_project/iteration_v11/knowledge_graph.json'
 
     print(f"🔍 查找数据文件: {ccus_data_path}")
     print(f"📁 文件存在: {os.path.exists(ccus_data_path)}")
@@ -114,7 +115,7 @@ def graph():
 
             return jsonify({
                 'data': graph_data,
-                'message': 'CCUS Knowledge Graph Loaded!'
+                'message': 'CCUS Knowledge Graph v11 (Final Converged Version) Loaded!'
             })
         except Exception as e:
             return jsonify({

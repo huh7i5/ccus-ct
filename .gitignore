@@ -14,6 +14,7 @@ __pycache__/
 ./SPN4RE/bert_pretrain/
 Uie-finetune/checkpoint/
 weights/
+server/weights/
 *.pth
 *.bin
 *.safetensors
@@ -22,13 +23,21 @@ weights/
 test*.ipynb
 *.ipynb_checkpoints
 
-# CCUS-CT specific
-data/project_*/iteration_*/
-data/project_*/history/
-*.log
+# Training iteration data (keep only final results)
+data/ccus_project/iteration_v*/
+!data/ccus_project/iteration_v11/
+data/ccus_project/history/
+data/ccus_project/base_backup.json
+data/ccus_project/base_truncated.json
 
-# Logs
-logs
+# Training scripts (auto-generated)
+continue_*.py
+manual_continue.py
+fix_token_alignment.py
+truncate_data.py
+
+# Logs and temporary files
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -36,16 +45,23 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-coverage
+# Node.js dependencies and build files
+node_modules/
+dist/
+dist-ssr/
+coverage/
 *.local
 
-weights
-
+# Testing files
 /cypress/videos/
 /cypress/screenshots/
+
+# Environment and config files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Editor directories and files
 *.suo
@@ -54,3 +70,20 @@ weights
 *.sln
 *.sw?
 
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Large data files (keep only essential results)
+data/**/all_pdfs_combined*.txt
+data/**/cleaned_ccus_data.txt
+
+# Backup and temporary files
+*.backup
+*~
+.tmp/
+temp/

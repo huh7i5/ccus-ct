@@ -20,11 +20,11 @@ class CCUSKnowledgeGraphSearcher:
         self.load_knowledge_graph()
 
     def load_knowledge_graph(self):
-        """加载CCUS知识图谱数据"""
+        """加载CCUS知识图谱数据 - v11最终收敛版本"""
         kg_paths = [
-            "../data/ccus_project/base.json",
-            "/root/KnowledgeGraph-based-on-Raw-text-A27-main/KnowledgeGraph-based-on-Raw-text-A27-main/data/ccus_project/base.json",
-            "../../data/ccus_project/base.json"
+            "../data/ccus_project/iteration_v11/knowledge_graph.json",
+            "/root/KnowledgeGraph-based-on-Raw-text-A27-main/KnowledgeGraph-based-on-Raw-text-A27-main/data/ccus_project/iteration_v11/knowledge_graph.json",
+            "../../data/ccus_project/iteration_v11/knowledge_graph.json"
         ]
 
         for kg_path in kg_paths:

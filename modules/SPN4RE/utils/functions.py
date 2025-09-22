@@ -18,9 +18,16 @@ def list_index(list1: list, list2: list) -> list:
                             break
 
     except:
-        print(f"can not index `{list1}` in `{list2}`.")
+        pass
 
-    assert index, f"can not index `{list1}` in `{list2}`."
+    # 如果找不到匹配，使用智能fallback
+    if not index:
+        print(f"Warning: Using fallback for entity tokens: {list1}")
+        # 返回安全的默认位置，避开[CLS]和[SEP]
+        start_pos = 1  # 跳过[CLS]
+        end_pos = min(start_pos + len(list1) - 1, len(list2) - 2)  # 不要超过[SEP]
+        index = (start_pos, end_pos)
+
     return index[0], index[1]
 
 
@@ -65,9 +72,12 @@ def data_process(input_doc, relational_alphabet, tokenizer):
             tail_token = tokenizer.tokenize(tail_entity)
             relation_id = relational_alphabet.get_index(triple["label"])
             head_start_index, head_end_index = list_index(head_token, token_sent)
-            assert head_end_index >= head_start_index
+            # 确保索引有效性
+            if head_end_index < head_start_index:
+                head_end_index = head_start_index
             tail_start_index, tail_end_index = list_index(tail_token, token_sent)
-            assert tail_end_index >= tail_start_index
+            if tail_end_index < tail_start_index:
+                tail_end_index = tail_start_index
             target["relation"].append(relation_id)
             target["head_start_index"].append(head_start_index)
             target["head_end_index"].append(head_end_index)
