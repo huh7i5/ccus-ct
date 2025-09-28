@@ -1,0 +1,35 @@
+# Core Python dependencies
+torch>=1.13.0
+transformers>=4.20.0
+numpy>=1.21.0
+jieba>=0.42.1
+zhconv>=1.4.3
+
+# PaddleNLP dependencies
+paddlenlp>=2.4.0
+paddle2onnx>=1.0.0
+onnxruntime>=1.12.0
+six>=1.16.0
+
+# Web framework
+flask>=2.2.0
+flask-cors>=3.0.10
+
+# Data processing
+tqdm>=4.64.0
+pandas>=1.4.0
+
+# Text processing and search
+thefuzz>=0.19.0
+opencc-python-reimplemented>=0.1.6
+wikipediaapi>=0.5.8
+
+# Development dependencies
+sentencepiece>=0.1.97
+requests>=2.28.0
+
+# Optional GPU dependencies (uncomment if using GPU)
+# cpm_kernels
+
+# Data validation
+typing_extensions>=4.3.0

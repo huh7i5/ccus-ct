@@ -24,13 +24,15 @@
 
 ### 安装依赖
 ```bash
-# 安装前端依赖
-cd chat-kg
-npm install
+# 克隆项目
+git clone <repository-url>
+cd KnowledgeGraph-based-on-Raw-text-A27-main
 
-# 安装后端依赖
-cd ../server
+# 安装Python依赖
 pip install -r requirements.txt
+
+# 安装Node.js依赖 (包含前端和后端启动)
+npm install
 ```
 
 ### 启动服务
@@ -119,16 +121,60 @@ v0 (种子图谱) → v1 (38.10%) → v2 (29.17%) → ... → v11 (10.00% 收敛
 
 ## 🔧 环境配置
 
+### Python 依赖 (requirements.txt)
 ```
-python                    3.8.16
-torch                     1.11.0+cu113
-paddlenlp                 2.5.1
-paddlepaddle-gpu          2.3.2
-transformers              4.21.0
-networkx                  2.8.4
-matplotlib                3.5.2
-flask                     2.2.2
-vue                       3.3.0
+# 核心依赖
+torch>=1.13.0
+transformers>=4.20.0
+numpy>=1.21.0
+jieba>=0.42.1
+zhconv>=1.4.3
+
+# PaddleNLP相关
+paddlenlp>=2.4.0
+paddle2onnx>=1.0.0
+onnxruntime>=1.12.0
+
+# Web框架
+flask>=2.2.0
+flask-cors>=3.0.10
+
+# 文本处理
+thefuzz>=0.19.0
+opencc-python-reimplemented>=0.1.6
+wikipediaapi>=0.5.8
+
+# 其他工具
+tqdm>=4.64.0
+pandas>=1.4.0
+sentencepiece>=0.1.97
+requests>=2.28.0
+```
+
+### Node.js 依赖
+#### 根目录 (package.json)
+```json
+{
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
+```
+
+#### 前端 (chat-kg/package.json)
+```json
+{
+  "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
+    "ant-design-vue": "^3.2.17",
+    "axios": "^1.3.4",
+    "d3": "^7.8.3",
+    "echarts": "^5.4.2",
+    "echarts-gl": "^2.0.9",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
+  }
+}
 ```
 
 ## 📚 核心模型
